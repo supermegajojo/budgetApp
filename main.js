@@ -29,71 +29,94 @@ budgetValueP.innerText = "0 $";
 expenseValueP.innerText = "0 $";
 balanceValueP.innerText = "0 $";
 
+// calculation and display of the budget, the expenses and the balance
+//when the user click on the button "calculate"
+
+function display(budget,Expenses){ // we will use this function to change the budget, the total expenses and the balance
+    
+    actualBudget = budget + " $";
+
+    balance = actualBudgetValue - Expenses; // calculate tha balance
+    
+    actualBalance = balance.toString() + " $";
+    actualExpense = totalExpense.toString() + " $";
+
+    //change the values of the inner paragraphs
+
+    budgetValueP.innerText = actualBudget;
+    balanceValueP.innerText = actualBalance;
+    expenseValueP.innerText = actualExpense;
+}
 
 calculateButton.addEventListener("click", function(){
 
-    if (budget.value != ""){
+    if (budget.value != ""){ // We verify that the input is not empty
         actualBudgetValue = budget.value;
-        actualBudget = actualBudgetValue + " $";
-        budgetValueP.innerText = actualBudget;
 
-        balance = actualBudgetValue - totalExpense;
-        actualBalance = balance.toString() + " $";
-        balanceValueP.innerText = actualBalance;
+        display(actualBudgetValue,totalExpense);
     }
 })
 
-var totalExpense = 0;
+var totalExpense = 0; // initialise the total expense
 
 addExpenseButton.addEventListener("click", function(){
     
-    if (expenseAmount.value != ""  &&  expenseTitle.value != "" ){
+    if (expenseAmount.value != ""  &&  expenseTitle.value != "" ){ // verify that no input is blank
 
-        totalExpense += parseFloat(expenseAmount.value);
+        // Add the new expense value to the total
 
-        balance = actualBudgetValue - totalExpense;
+        totalExpense += parseFloat(expenseAmount.value); 
 
-        actualExpense = totalExpense.toString() + " $";
-        actualBalance = balance.toString() + " $";
+        display(actualBudgetValue,totalExpense);
 
-        expenseValueP.innerText = actualExpense;
-        balanceValueP.innerText = actualBalance;
+    
+        //create new paragraph to display the expense title and cost + a button to delete it
         
         var expenseTitleParagraph = document.createElement("p");
         var expenseAmountParagraph = document.createElement("p");
         var deleteButton = document.createElement("button");
 
+        // Add the styling to the paragraph and the delete button
         
-
         expenseTitleParagraph.classList.add("paragraph-styling");
         expenseAmountParagraph.classList.add("paragraph-styling");
         deleteButton.classList.add("button-styling");
+        
+        //Add the paragraphs and button to the correct html sections
 
         expenseTitleSection.appendChild(expenseTitleParagraph);
         expenseValueSection.appendChild(expenseAmountParagraph);
         deleteButtonSection.appendChild(deleteButton);
 
+        //indicate the innerText of each paragraph and button
+
         expenseTitleParagraph.innerText = expenseTitle.value ;
         expenseAmountParagraph.innerText = expenseAmount.value + " $";
         deleteButton.innerText = "delete";
 
+        //clear the two intput bars
+        
         expenseTitle.value = "";
         expenseAmount.value = "";
+
+        //deleting the explenses :
         
         deleteButton.addEventListener("click",function(){
+
+            // use removeChild to remove the paragraphs and buttons of the html section
+
             expenseTitleSection.removeChild(expenseTitleParagraph);
             expenseValueSection.removeChild(expenseAmountParagraph);
             deleteButtonSection.removeChild(deleteButton);
 
-            let valueToDeduct = expenseAmountParagraph.innerText;
+            //calculation of the new total expense :
 
-            totalExpense -= valueToDeduct.slice(0,-1);
-            actualExpense = totalExpense.toString() + " $"; 
-            expenseValueP.innerText = actualExpense;
+            let valueToDeduct = expenseAmountParagraph.innerText; // collecting the cost of the deleted expense
 
-            balance =actualBudgetValue - totalExpense
-            actualBalance = balance.toString() + " $";
-            balanceValueP.innerText = actualBalance;
+            totalExpense -= valueToDeduct.slice(0,-1); // deleting the "$" att the end of the cost and substracting it from the previous total expense
+           
+            display(actualBudgetValue,totalExpense);
+
 
         })
        
@@ -103,18 +126,17 @@ addExpenseButton.addEventListener("click", function(){
    
 })
 
-deleteAllButton.addEventListener("click", function(){
+deleteAllButton.addEventListener("click", function(){ // if the user want to delete all the expenses
+
+    // the sections will only contain their titles :
 
     expenseTitleSection.innerHTML = "<h1>Expense title</h1>";
-
     expenseValueSection.innerHTML = "<h1>Expense value</h1>";
     deleteButtonSection.innerHTML = "";
 
-    totalExpense =0 ;
-    actualExpense = totalExpense.toString() + " $"; 
-    expenseValueP.innerText = actualExpense;
+    // Display of the new expenses and balance :
+    totalExpense = 0 ;
 
-    balance = actualBudgetValue;
-    actualBalance = balance.toString() + " $";
-    balanceValueP.innerText = actualBalance;
+    display(actualBudgetValue,totalExpense);
+
 })

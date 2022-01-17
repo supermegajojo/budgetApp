@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Budget App</title>
+</head>
+<body>
+    <h1>Budget App by Joan Akibode</h1>
+    <div class="budget">
+        <div class="container">
+
+            <div id="budgetRect" >
+
+                <H1>Enter your budget</H1>
+                <input type="number" id = 'budgetInput'>
+                <button id ='calculate'>Calculate</button>
+            </div>
+
+            <div class="budget-section-1">
+                <h1>Budget</h1>
+                <p id="budgetValue"></p>
+            </div>
+            <div class="budget-section-2">
+                <h1>Expense</h1>
+                <p id="expenseValue"></p>
+            </div>
+
+            <div class="budget-section-3">
+                <h1>Balance</h1>
+                <p id="balanceValue"></p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="expense">
+
+        <div class="container-expense">
+            <div id = "expenseRect">
+
+                <H1>Enter your expense title</H1>
+                <input type="text" id = 'expenseTitleInput'>
+                
+    
+                <H1>Enter your expense amount</H1>
+                <input type="number" id = 'expenseAmountInput'>
+                <button id ='addExpense'>Add Expense</button>
+    
+            </div>
+    
+            <div id="expenseTitleSection">
+                <h1>Expense title</h1>
+            </div>
+    
+            <div id="expenseValueSection">
+                <h1>Expense value</h1>
+            </div>
+
+            <div id="deleteButtonSection">
+            </div>
+
+            <button id="deleteAll"> Delete all expenses</button>
+        </div>
+
+
+
+    </div>
+
+    <script src="main.js"></script>
+
+</div>
+
+    
+</body>
+</html>
